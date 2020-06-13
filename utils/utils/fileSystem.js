@@ -1,9 +1,9 @@
 const { promises : fs} = require('fs');
 
-const readFile = async (filePath) => {
+const readFile = async (filePath, encoding = 'utf-8') => {
     
     try{
-        const fileContent = await fs.readFile(filePath, 'utf-8');
+        const fileContent = await fs.readFile(filePath, encoding);
         return fileContent;
     } catch(err){
         console.log('file not found!!', err);
@@ -11,9 +11,9 @@ const readFile = async (filePath) => {
     }
 }
 
-const writeToFile = async (fileNameWithPath, fileContent) => {
+const writeToFile = async (fileNameWithPath, fileContent, encoding = 'utf-8') => {
     try{
-        await fs.writeFile(fileNameWithPath, fileContent);
+        await fs.writeFile(fileNameWithPath, fileContent, encoding);
     } catch(err){
         console.log('an error occurred while writing to file', err);
         return err;

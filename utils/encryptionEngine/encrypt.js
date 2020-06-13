@@ -9,14 +9,14 @@ const HORCRUXES = ["Tom Riddle's diary", "Marvolo Gaunt's Ring", "Salazar Slythe
 
 const horcruxify = async (path, directory, fileBlob, password, fileExtension) => {
     var cipher = crypto.createCipher('aes-128-cbc', password);
-    var encryptedBlob = cipher.update(fileBlob, 'utf8', 'hex') + cipher.final('hex');
+    var encryptedBlob = cipher.update(fileBlob, 'binary', 'hex') + cipher.final('hex');
     let chunks = chunkify(encryptedBlob, 7);
   
     await ensureDirectory(path, directory);
 
     for(var i = 0; i < 7; i++){
       // await writeFile(path + `/${directory}/` + HORCRUXES[i] + ".txt", chunks[i]); // need to update the extension.
-      await writeFile(`${path}/${directory}/${HORCRUXES[i]}.${fileExtension}`, chunks[i])
+      await writeFile(`${path}/${directory}/${HORCRUXES[i]}.${fileExtension}`, chunks[i], 'binary')
     }
     
     console.log("\nTA DA!!!! your file is horcruxified!!!\n");
@@ -26,7 +26,7 @@ const horcruxify = async (path, directory, fileBlob, password, fileExtension) =>
 const eventHandler = async (fileName, password, fileExtension) => {
     console.log(fileName);
     const filePath = `${public_folder}/public/${fileName}`
-    const content = await readFile(filePath);
+    const content = await readFile(filePath, 'binary');
     // console.log(content);
     const response = horcruxify(`${public_folder}/public`, `horcruxes-of-${fileName}`, content, password, fileExtension);
     await removeFile(filePath);
