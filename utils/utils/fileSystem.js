@@ -47,7 +47,7 @@ const ensureDirectory = async (path, directory) => {
         }
     } catch(err){
         await fs.mkdir(`${path}/${directory}`);
-        console.log('folder not exists');
+        console.log('folder does not exists');
     }
 }
 

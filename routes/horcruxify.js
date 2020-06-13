@@ -5,9 +5,6 @@ const encryptionEngine = require('../utils/encryptionEngine/encrypt');
 const { removeFile } = require('../utils/utils/fileSystem');
 const archive = require('../utils/archiveEngine/archive');
 
-// let destinationFolder = 'horcruxes';
-// const fileStorageFolderName = 'Voldemort';
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public');
@@ -37,8 +34,7 @@ router.post('/', (req, res, next) => {
         
         const password = req.body.password
         const fileExtension = req.body.fileExtension;
-        console.log('pass: ', password);
-        console.log('fileExtension: ', fileExtension);
+        
         const folderPath = await encryptionEngine(req.file.filename, password, fileExtension);
         const zipFile = await archive(res, folderPath, fileExtension) + '.zip'; // here 2nd argument of archive needs to be dynamic sync to encrypt module
         console.log('zip file name: ', zipFile);

@@ -34,9 +34,7 @@ router.post('/', async (req, res, next) => {
             return res.status(500).json(err);
         }
         const password = req.body.password
-        console.log('pass: ', password);
         const fileExtension = req.body.fileExtension;
-        console.log('fileExtension: ', fileExtension);
 
         const fileName = await decryptionEngine(destinationFolder, password, fileExtension);
         return res.status(200).send(fileName);
@@ -45,12 +43,10 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
     const filename = req.query.filename;
-    console.log(filename);
     await removeFile(filename);
     const parts = filename.split('/');
     const slicedParts = parts.slice(0, parts.length - 1);
     const directoryPath = slicedParts.join('/');
-    console.log('directory path: ', directoryPath);
     removeFolder(directoryPath);
     res.status(200).send('Deleted');
 })

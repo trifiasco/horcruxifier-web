@@ -15,7 +15,6 @@ const horcruxify = async (path, directory, fileBlob, password, fileExtension) =>
     await ensureDirectory(path, directory);
 
     for(var i = 0; i < 7; i++){
-      // await writeFile(path + `/${directory}/` + HORCRUXES[i] + ".txt", chunks[i]); // need to update the extension.
       await writeFile(`${path}/${directory}/${HORCRUXES[i]}.${fileExtension}`, chunks[i], 'binary')
     }
     
@@ -27,7 +26,7 @@ const eventHandler = async (fileName, password, fileExtension) => {
     console.log(fileName);
     const filePath = `${public_folder}/public/${fileName}`
     const content = await readFile(filePath, 'binary');
-    // console.log(content);
+
     const response = horcruxify(`${public_folder}/public`, `horcruxes-of-${fileName}`, content, password, fileExtension);
     await removeFile(filePath);
     return response;

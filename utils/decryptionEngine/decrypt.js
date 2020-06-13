@@ -11,18 +11,15 @@ const deHorcruxify = async (folderPath, fileBlob, password, fileExtension) => {
   var cipher = crypto.createDecipher('aes-128-cbc', password);
   var decryptedBlob = cipher.update(fileBlob, 'hex', 'binary') + cipher.final('binary');
 
-  // await writeFile(folderPath + "/original.txt", decryptedBlob); // need to add the extension
   await writeFile(`${folderPath}/original.${fileExtension}`, decryptedBlob, 'binary');
   console.log("\nTA DA!!!! your file is de-horcruxified!!!\n");
   return `${folderPath}/original.${fileExtension}`
-  //return folderPath + "/original.txt"; // need to add the extension
 }
 
 const processFolder = async (folderPath, fileExtension) => {
   let fullBlob = "";
 
   for(const item of HORCRUXES){
-    console.log(item);
     let fileName = `${folderPath}/${item}.${fileExtension}`//folderPath + "/" + item; // needs to add the extension
     fullBlob += await readFile(fileName, 'binary');
     await removeFile(fileName);
