@@ -35,8 +35,10 @@ router.post('/', async (req, res, next) => {
         }
         const password = req.body.password
         console.log('pass: ', password);
+        const fileExtension = req.body.fileExtension;
+        console.log('fileExtension: ', fileExtension);
 
-        const fileName = await decryptionEngine(destinationFolder, password);
+        const fileName = await decryptionEngine(destinationFolder, password, fileExtension);
         return res.status(200).send(fileName);
     });
 });

@@ -36,9 +36,11 @@ router.post('/', (req, res, next) => {
         }
         
         const password = req.body.password
+        const fileExtension = req.body.fileExtension;
         console.log('pass: ', password);
-        const folderPath = await encryptionEngine(req.file.filename, password);
-        const zipFile = await archive(res, folderPath) + '.zip'; // here 2nd argument of archive needs to be dynamic sync to encrypt module
+        console.log('fileExtension: ', fileExtension);
+        const folderPath = await encryptionEngine(req.file.filename, password, fileExtension);
+        const zipFile = await archive(res, folderPath, fileExtension) + '.zip'; // here 2nd argument of archive needs to be dynamic sync to encrypt module
         console.log('zip file name: ', zipFile);
         
         return res.status(200).send(zipFile);
