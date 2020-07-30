@@ -1,0 +1,15 @@
+.container{
+    background-color: black;
+    height: 350px;
+    width: 350px;
+    border-radius: 45px;
+    padding-top: 10px;
+}
+
+.base-button{
+    margin: 18px 18px 18px 18px;
+}
+
+.button-container{
+    padding-top: 20px;
+}
