@@ -13,11 +13,6 @@
     "clean": "rimraf build",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "dependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
