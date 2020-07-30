@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "init": "npm install && cd client && npm install",
     "devstart": "babel-node ./server/bin/www",
     "start": "npm run build && node ./build/bin/www",
     "start:dev": "npm run build:client && npm run build && node ./build/bin/www",
